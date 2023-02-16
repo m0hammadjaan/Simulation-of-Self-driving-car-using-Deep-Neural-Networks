@@ -1,1 +1,1 @@
-# Simulation-of-Self-driving-car-using-Deep-RL
+# Simulation-of-Self-driving-car-using-Deep-Neural-Networks
