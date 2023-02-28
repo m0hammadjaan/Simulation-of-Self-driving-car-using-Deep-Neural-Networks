@@ -6,7 +6,8 @@ const road=new Road(canvas.width/2,canvas.width*0.9, 7);
 const car=new Car(road.getLaneCenter(3),100,30,50, "Player");
 const traffic = 
 [
-    new Car(road.getLaneCenter(random()),-100,30,50, "DUMMY", 2, "red")
+    new Car(road.getLaneCenter(random()),-100,30,50, "DUMMY", 2, getRandomColor()),
+    new Car(road.getLaneCenter(random()),-100,30,50, "DUMMY", 2, getRandomColor()),
 ];
 
 
