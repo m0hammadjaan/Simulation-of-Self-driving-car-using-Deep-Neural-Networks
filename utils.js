@@ -44,7 +44,7 @@ const polysIntersect = (poly1, poly2) => {
 }
 
 const random = () => {
-    return Math.floor(Math.random() * 10) + 1;
+    return Math.floor(Math.random() * 8);
 }
 
 function getRandomColor(){
