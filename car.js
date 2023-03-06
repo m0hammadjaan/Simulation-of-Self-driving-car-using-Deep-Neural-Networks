@@ -22,6 +22,7 @@ class Car{
         this.mask = document.createElement("canvas");
         this.mask.width = width;
         this.mask.height =height;
+        this.brakePull = 0.5;
 
         const maskCtx = this.mask.getContext("2d");
         this.img.onload = () =>{
@@ -89,7 +90,14 @@ class Car{
         if(this.controls.reverse){
             this.speed-=this.acceleration;
         }
-
+        if(this.controls.brake)
+        {
+            this.speed-=this.brakePull;
+            if(this.speed < 0)
+            {
+                this.speed = 0;
+            }
+        }
         if(this.speed>this.maxSpeed){
             this.speed=this.maxSpeed;
         }

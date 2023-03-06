@@ -4,6 +4,7 @@ class Controls{
         this.left=false;
         this.right=false;
         this.reverse=false;
+        this.brake=false;
 
         switch(controlType)
         {
@@ -30,6 +31,9 @@ class Controls{
                 case "ArrowDown":
                     this.reverse=true;
                     break;
+                case " ":
+                    this.brake=true;
+                    break; 
             }
         }
         document.onkeyup=(event)=>{
@@ -45,6 +49,9 @@ class Controls{
                     break;
                 case "ArrowDown":
                     this.reverse=false;
+                    break;
+                case " ":
+                    this.brake=false;
                     break;
             }
         }
