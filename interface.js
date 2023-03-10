@@ -81,7 +81,7 @@ const traffic =
 animate();
 
 function animate(){
-    document.getElementById('speed').innerHTML = Math.abs(car.speed * 10);
+    document.getElementById('speed').innerHTML = Math.round(Math.abs(car.speed * 10));
     for(let i = 0; i < traffic.length; i++)
     {
         traffic[i].update(road.borders, []);
