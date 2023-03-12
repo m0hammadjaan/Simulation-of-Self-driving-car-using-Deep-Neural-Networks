@@ -84,26 +84,33 @@ for (let i = 1; i < 1000; i++)
 animate();
 
 function animate(){
-    document.getElementById('speed').innerHTML = Math.round(Math.abs(car.speed * 10));
-    for(let i = 0; i < traffic.length; i++)
+    if(!car.damaged)
     {
-        traffic[i].update(road.borders, []);
+        document.getElementById('speed').innerHTML = Math.round(Math.abs(car.speed * 10));
+        for(let i = 0; i < traffic.length; i++)
+        {
+            traffic[i].update(road.borders, []);
+        }
+
+        car.update(road.borders, traffic);
+
+        canvas.height=window.innerHeight;
+
+        ctx.save();
+        ctx.translate(0,-car.y+canvas.height*0.7);
+
+        road.draw(ctx);
+        for(let i = 0; i < traffic.length; i++)
+        {
+            traffic[i].draw(ctx);
+        }
+        car.draw(ctx);
+
+        ctx.restore();
+        requestAnimationFrame(animate);
     }
-
-    car.update(road.borders, traffic);
-
-    canvas.height=window.innerHeight;
-
-    ctx.save();
-    ctx.translate(0,-car.y+canvas.height*0.7);
-
-    road.draw(ctx);
-    for(let i = 0; i < traffic.length; i++)
+    else
     {
-        traffic[i].draw(ctx);
+        document.getElementById('speed').innerHTML = "DEAD";
     }
-    car.draw(ctx);
-
-    ctx.restore();
-    requestAnimationFrame(animate);
 }
