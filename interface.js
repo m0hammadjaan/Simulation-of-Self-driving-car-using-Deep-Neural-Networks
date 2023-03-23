@@ -1,6 +1,6 @@
 const canvas=document.getElementById("myCanvas");
 canvas.width=470;
-
+var DONE = false;
 const ctx = canvas.getContext("2d");
 const road=new Road(canvas.width/2,canvas.width*0.9, 7);
 const car=new Car(road.getLaneCenter(3),100,30,50, "Player");
@@ -111,6 +111,7 @@ function animate(){
     }
     else
     {
+        DONE = true;
         document.getElementById('speed').innerHTML = "DEAD";
     }
 }
