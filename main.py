@@ -1,22 +1,23 @@
 import numpy as np
 from Agent import Agent
 from EnvUtilities import makeEnvironment
+from utils import learningRate, epsilonDecay, epsilonMinimum, epsilon, gamma, batchSize, replace, memSize, checkpointDirectory, algorithm, envName
 import warnings
 
 
 if __name__ == '__main__':
     warnings.filterwarnings("ignore")
 
-    env = makeEnvironment('highway-v0')
+    env = makeEnvironment(envName)
     bestScore = -np.inf
     loadCheckpoint = False
     numGames = 500
-    agent = Agent(gamma=0.99, epsilon=1, lr=0.0001,
+    agent = Agent(gamma = gamma, epsilon = epsilon, lr = learningRate,
                      inputDims = (env.observation_space.shape),
-                     nActions = env.action_space.n, memSize = 20, epsMin = 0.1,
-                     batchSize = 32, replace = 1000, epsDec = 1e-5,
-                     chkptDir = 'models/', algo = 'DQNAgent',
-                     envName = 'highway-v0')
+                     nActions = env.action_space.n, memSize = memSize, epsMin = epsilonMinimum,
+                     batchSize = batchSize, replace = replace, epsDec = epsilonDecay,
+                     chkptDir = checkpointDirectory, algo = algorithm,
+                     envName = envName)
     if  loadCheckpoint:
         agent.loadModel()
     fname = agent.algo+'_'+agent.envName+'_lr'+str(agent.lr)+'_'+str(numGames)+'games'
