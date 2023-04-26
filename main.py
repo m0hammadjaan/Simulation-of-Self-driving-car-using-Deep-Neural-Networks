@@ -2,6 +2,7 @@ import numpy as np
 from Agent import Agent
 from EnvUtilities import makeEnvironment
 from utils import learningRate, epsilonDecay, epsilonMinimum, epsilon, gamma, batchSize, replace, memSize, checkpointDirectory, algorithm, envName
+import csv
 import warnings
 
 
@@ -23,33 +24,40 @@ if __name__ == '__main__':
     fname = agent.algo+'_'+agent.envName+'_lr'+str(agent.lr)+'_'+str(numGames)+'games'
     nsteps = 0
     scores, epsHistory, stepsArray = [], [], []
+    header = ['Episode', 'Score', 'Average Score', 'Best Score', 'Epsilon', 'Steps']
 
-    for i in range(numGames):
-        done = False
-        score = 0
-        observation = env.reset(seed = None, options = None)
+    with open('AgentPerformance.csv', 'w') as file:
+        csvfile = csv.writer(file)
+        csvfile.writerow(header)
 
-        while not done:
-            env.render()
-            action = agent.chooseAction(observation)
-            observation_, reward, done, truncated, info = env.step(action)
-            score += reward
+        for i in range(numGames):
+            done = False
+            score = 0
+            observation = env.reset(seed = None, options = None)
 
-            if not loadCheckpoint:
-                agent.storeTransition(observation, action, reward, observation_, int(done))
+            while not done:
+                env.render()
+                action = agent.chooseAction(observation)
+                observation_, reward, done, truncated, info = env.step(action)
+                score += reward
 
-                agent.learn()
+                if not loadCheckpoint:
+                    agent.storeTransition(observation, action, reward, observation_, int(done))
 
-            observation = observation_
-            nsteps += 1
+                    agent.learn()
 
-        scores.append(score)
-        stepsArray.append(nsteps)
-        avgScore = np.mean(scores[-100:])
-        print('Episode:', i, 'Score: %.4f' %score, 'Average Score: %.4f' %avgScore, 'Best Score: %.4f' %bestScore, 'Epsilon: %.4f' %agent.epsilon, 'Steps', nsteps)
-        if avgScore > bestScore:
-            if not loadCheckpoint:
-                agent.saveModel()
-            bestScore = avgScore
+                observation = observation_
+                nsteps += 1
 
-        epsHistory.append(agent.epsilon)
+            scores.append(score)
+            stepsArray.append(nsteps)
+            avgScore = np.mean(scores[-100:])
+            print('Episode:', i, 'Score: %.4f' %score, 'Average Score: %.4f' %avgScore, 'Best Score: %.4f' %bestScore, 'Epsilon: %.4f' %agent.epsilon, 'Steps', nsteps)
+            if avgScore > bestScore:
+                if not loadCheckpoint:
+                    agent.saveModel()
+                bestScore = avgScore
+
+            epsHistory.append(agent.epsilon)
+            data = [i, score, avgScore, bestScore, agent.epsilon, nsteps]
+            csvfile.writerow(data)
