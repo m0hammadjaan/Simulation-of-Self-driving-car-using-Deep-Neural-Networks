@@ -1,8 +1,9 @@
-import csv
+import pandas as pd
 
-def writeCSV(colNames, data, fileName):
-    with open(fileName, 'w') as csvfile:
-        writer = csv.writer(csvfile, delimiter=',')
-        writer.writerow(colNames)
-        for row in data:
-            writer.writerow(row)
+class CSVUtils:
+    def __init__(self, fileName):
+        self.fileName = fileName
+        self.data = pd.read_csv(self.fileName)
+    def getLastIndexedData(self, columnName):
+        return self.data[columnName][self.data.index[-1]]
+
