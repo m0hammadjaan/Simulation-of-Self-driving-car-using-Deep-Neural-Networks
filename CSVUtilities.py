@@ -7,3 +7,5 @@ class CSVUtils:
     def getLastIndexedData(self, columnName):
         return self.data[columnName][self.data.index[-1]]
 
+    def length(self):
+        return len(self.data.index)
