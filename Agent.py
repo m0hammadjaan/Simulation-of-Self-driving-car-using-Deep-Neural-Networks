@@ -3,7 +3,7 @@ import torch as T
 from DQN import DeepQNetwork
 from AgentMemory import AgentMemory
 
-class Agent:
+class DoubleDQNAgent:
     def __init__(self, gamma, epsilon, lr, nActions, inputDims, batchSize,
                  memSize, epsMin = 0.01, epsDec = 5e-7, replace = 1000,
                  algo = None, envName = None, chkptDir = 'tmp/dqn'):
@@ -74,15 +74,18 @@ class Agent:
 
         states, actions, rewards, states_, dones = self.sampleMemory()
         indices = np.arange(self.batchSize)
+
         qPred = self.qEval.forward(states)[indices, actions]
-        qNext = self.qNext.forward(states_).max(dim = 1)[0]
+        qNext = self.qNext.forward(states_)
+        qEval = self.qEval.forward(states_)
 
-        qNext[dones] = 0.0
-        qTarget = rewards + self.gamma * qNext
-
+        maxActions = T.argmax(qEval, dim = 1)
+        qNext[dones] = 0
+        qTarget = rewards + self.gamma * qNext[indices, maxActions]
         loss = self.qEval.loss(qTarget, qPred).to(self.qEval.device)
         loss.backward()
+
         self.qEval.optimizer.step()
         self.learnStepCounter += 1
-
         self.decrementEpsilon()
+

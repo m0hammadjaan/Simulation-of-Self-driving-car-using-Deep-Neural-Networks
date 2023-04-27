@@ -11,7 +11,7 @@ batchSize = 32
 replace = 1000
 epsilonDecay = 1e-5
 checkpointDirectory = 'models/'
-algorithm = 'DQN'
+algorithm = 'DoubleDQN'
 envName = 'highway-v0'
 
 def getInt(lst):

@@ -1,5 +1,5 @@
 import numpy as np
-from Agent import Agent
+from Agent import DoubleDQNAgent
 from EnvUtilities import makeEnvironment
 from utils import learningRate, epsilonDecay, epsilonMinimum, epsilon, gamma, batchSize, replace, memSize, checkpointDirectory, algorithm, envName, getInt
 from CSVUtilities import CSVUtils
@@ -26,7 +26,7 @@ if __name__ == '__main__':
 
 
     loadCheckpoint = False
-    agent = Agent(gamma = gamma, epsilon = epsilon, lr = learningRate,
+    agent = DoubleDQNAgent(gamma = gamma, epsilon = epsilon, lr = learningRate,
                      inputDims = (env.observation_space.shape),
                      nActions = env.action_space.n, memSize = memSize, epsMin = epsilonMinimum,
                      batchSize = batchSize, replace = replace, epsDec = epsilonDecay,
