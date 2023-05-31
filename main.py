@@ -62,10 +62,11 @@ if __name__ == '__main__':
             scores.append(score)
             avgScore = np.mean(scores[-100:])
             print('Episode:', i, 'Score: %.4f' %score, 'Average Score: %.4f' %avgScore, 'Best Score: %.4f' %bestScore, 'Epsilon: %.4f' %agent.epsilon, 'Steps:', nsteps, 'Terminal State:', int(done))
-            if avgScore >= bestScore:
+            if score >= bestScore:
                 if not loadCheckpoint:
                     agent.saveModel()
-                bestScore = avgScore
+                bestScore = score
+
 
             data = [i, score, avgScore, bestScore, agent.epsilon, nsteps, int(done)]
             csvfile.writerow(data)
