@@ -22,7 +22,7 @@ if __name__ == '__main__':
         bestScore = -np.inf
         nsteps = 0
         lastEpisode = 0
-    numGames = 500
+    numGames = 10
 
 
     loadCheckpoint = False
