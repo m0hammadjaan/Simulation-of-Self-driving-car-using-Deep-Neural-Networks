@@ -2,7 +2,7 @@ from CSVUtilities import CSVUtils
 
 lastData = CSVUtils('AgentPerformance.csv')
 
-learningRate = 0.0001
+learningRate = 0.00025
 gamma = 0.95
 epsilon = lastData.getLastIndexedData('Epsilon') if lastData.length() > 0 else 1.0
 memSize = 20
