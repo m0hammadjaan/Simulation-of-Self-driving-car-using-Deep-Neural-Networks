@@ -22,7 +22,7 @@ if __name__ == '__main__':
         bestScore = -np.inf
         nsteps = 0
         lastEpisode = 0
-    numGames = 10
+    numGames = 100
 
 
     loadCheckpoint = False
@@ -40,7 +40,7 @@ if __name__ == '__main__':
     with open('AgentPerformance.csv', 'a') as file:
         csvfile = csv.writer(file)
 
-        for i in range(lastEpisode if csvData.length() > 0 else 1, lastEpisode + numGames):
+        for i in range(lastEpisode + 1 if csvData.length() > 0 else 1, lastEpisode + numGames + 1):
             done = False
             score = 0
             observation = env.reset(seed = None, options = None)
