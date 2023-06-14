@@ -3,6 +3,7 @@ from Agent import DoubleDQNAgent
 from EnvUtilities import makeEnvironment
 from utils import learningRate, epsilonDecay, epsilonMinimum, epsilon, gamma, batchSize, replace, memSize, checkpointDirectory, algorithm, envName, getInt
 from CSVUtilities import CSVUtils
+from Insights import Insights
 import csv
 import warnings
 
@@ -22,7 +23,7 @@ if __name__ == '__main__':
         bestScore = -np.inf
         nsteps = 0
         lastEpisode = 0
-    numGames = 100
+    numGames = 5
 
 
     loadCheckpoint = False
@@ -70,3 +71,12 @@ if __name__ == '__main__':
 
             data = [i, score, avgScore, bestScore, agent.epsilon, nsteps, int(done)]
             csvfile.writerow(data)
+
+    env.close()
+    insights = Insights('AgentPerformance.csv')
+    insights.plotEpisodeScore()
+    insights.plotAverageScore()
+    insights.plotBestScore()
+    insights.plotEpsilon()
+    insights.plotMultipleFeatures('Score', 'AverageScore', 'BestScore')
+    insights.plotSteps()
