@@ -35,7 +35,7 @@ class DeepQNetwork(nn.Module):
         conv3 = F.relu(self.conv3(conv2))
 
         convState = conv3.view(conv3.size()[0], -1)
-        flat1 = F.relu(self.fc1(convState))
+        flat1 = F.softmax(self.fc1(convState))
         actions = self.fc2(flat1)
         return actions
 

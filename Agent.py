@@ -23,10 +23,10 @@ class DoubleDQNAgent:
         self.learnStepCounter = 0
         self.memory = AgentMemory(memSize, inputDims, nActions)
         self.qEval = DeepQNetwork(self.lr, self.nActions, inputDims = self.inputDims,
-                                  name = self.envName + '_' + self.algo + '_qOnline_Adam',
+                                  name = self.envName + '_' + self.algo + '_qOnline_Adam_softmax',
                                   chkptDir = self.chkptDir)
         self.qNext = DeepQNetwork(self.lr, self.nActions, inputDims = self.inputDims,
-                                  name = self.envName + '_' + self.algo + '_qTarget_Adam',
+                                  name = self.envName + '_' + self.algo + '_qTarget_Adam_softmax',
                                   chkptDir = self.chkptDir)
     def chooseAction(self, observation):
         if np.random.random() > self.epsilon:

@@ -11,7 +11,7 @@ import warnings
 if __name__ == '__main__':
     warnings.filterwarnings("ignore")
 
-    csvData = CSVUtils('ADAMAgentPerformance.csv')
+    csvData = CSVUtils('SoftmaxAdamPerformance.csv')
 
     env = makeEnvironment(envName)
     if csvData.length() > 0:
@@ -23,7 +23,7 @@ if __name__ == '__main__':
         bestScore = -np.inf
         nsteps = 0
         lastEpisode = 0
-    numGames = 90
+    numGames = 5
 
 
     loadCheckpoint = False
@@ -38,7 +38,7 @@ if __name__ == '__main__':
     fname = agent.algo+'_'+agent.envName+'_lr'+str(agent.lr)+'_'+str(numGames)+'games'
     scores = getInt(list(csvData.data['Score']))
 
-    with open('ADAMAgentPerformance.csv', 'a') as file:
+    with open('SoftmaxAdamPerformance.csv', 'a') as file:
         csvfile = csv.writer(file)
 
         for i in range(lastEpisode + 1 if csvData.length() > 0 else 1, lastEpisode + numGames + 1):
@@ -73,7 +73,7 @@ if __name__ == '__main__':
             csvfile.writerow(data)
 
     env.close()
-    insights = Insights('ADAMAgentPerformance.csv')
+    insights = Insights('SoftmaxAdamPerformance.csv')
     insights.plotEpisodeScore()
     insights.plotAverageScore()
     insights.plotBestScore()
