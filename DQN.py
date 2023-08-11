@@ -30,9 +30,9 @@ class DeepQNetwork(nn.Module):
         dims = self.conv3(dims)
         return int(np.prod(dims.size()))
     def forward(self, state):
-        conv1 = F.relu(self.conv1(state))
-        conv2 = F.relu(self.conv2(conv1))
-        conv3 = F.relu(self.conv3(conv2))
+        conv1 = F.softmax(self.conv1(state))
+        conv2 = F.softmax(self.conv2(conv1))
+        conv3 = F.softmax(self.conv3(conv2))
 
         convState = conv3.view(conv3.size()[0], -1)
         flat1 = F.softmax(self.fc1(convState))
